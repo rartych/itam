@@ -1,0 +1,71 @@
+graph TB
+    subgraph "Presentation Layer"
+        MDA["📊 Model-Driven App<br/>Asset Management Hub"]
+        CAN["📱 Canvas Apps<br/>Mobile Check-in<br/>Invoice Entry Assistant"]
+        PBI["📈 Power BI Dashboards<br/>Portfolio | Warranty<br/>Compliance | License"]
+    end
+
+    subgraph "Integration Layer"
+        PA["⚙️ Power Automate<br/>Core Workflows"]
+        LA["🔗 Logic Apps<br/>B2B Integration"]
+    end
+
+    subgraph "Data Layer"
+        DVR["🗄️ Microsoft Dataverse<br/>Asset | Assignment | Warranty<br/>MaintenanceSchedule | License<br/>Invoice | PO | Vendor<br/>CompliancePolicy | AuditLog"]
+        SQL["📊 Azure SQL Database<br/>Historical Analytics<br/>Archived Records"]
+    end
+
+    subgraph "AI & Intelligence Layer"
+        DI["🤖 Azure Document Intelligence<br/>Invoice/PO Extraction<br/>Form Recognizer"]
+        OAI["🧠 Azure OpenAI<br/>Asset Categorization<br/>Recommendations"]
+    end
+
+    subgraph "External Integrations"
+        EMAIL["✉️ Email Service<br/>Notifications & Reports"]
+        SP["📁 SharePoint<br/>Document Repository"]
+        BLOB["☁️ Azure Blob Storage<br/>Invoice Documents"]
+        TEAMS["👥 Microsoft Teams<br/>Notifications"]
+    end
+
+    subgraph "Source Systems"
+        LEGACY["📋 Legacy Systems<br/>Spreadsheets, ERP"]
+        VENDORS["🏢 Vendor Portals<br/>Pricing APIs"]
+    end
+
+    %% Connections
+    MDA -->|CRUD| DVR
+    CAN -->|Read/Write| DVR
+    PBI -->|Query| DVR
+    PBI -->|Analytics| SQL
+    
+    PA -->|Orchestrates| DVR
+    PA -->|Triggers| LA
+    PA -->|Updates| DVR
+    PA -->|Sends| EMAIL
+    PA -->|Sends| TEAMS
+    LA -->|Integration| LEGACY
+    LA -->|Integration| VENDORS
+    
+    DI -->|Extracts| BLOB
+    DI -->|Returns| PA
+    OAI -->|Categorizes| PA
+    
+    SP -->|Stores Docs| BLOB
+    DVR -->|References| BLOB
+    
+    LEGACY -->|Migration| DVR
+    
+    %% Styling
+    classDef presentation fill:#4472C4,stroke:#002060,stroke-width:2px,color:#fff
+    classDef integration fill:#70AD47,stroke:#375623,stroke-width:2px,color:#fff
+    classDef data fill:#FFC000,stroke:#997300,stroke-width:2px,color:#000
+    classDef ai fill:#FF6B6B,stroke:#C41E3A,stroke-width:2px,color:#fff
+    classDef external fill:#A6A6A6,stroke:#595959,stroke-width:2px,color:#fff
+    classDef source fill:#D9D9D9,stroke:#808080,stroke-width:2px,color:#000
+    
+    class MDA,CAN,PBI presentation
+    class PA,LA integration
+    class DVR,SQL data
+    class DI,OAI ai
+    class EMAIL,SP,BLOB,TEAMS external
+    class LEGACY,VENDORS source

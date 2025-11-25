@@ -1,0 +1,63 @@
+graph TD
+    A["Asset<br/>─────<br/>AssetID (PK)<br/>AssetName<br/>AssetType<br/>SerialNumber<br/>Manufacturer<br/>Model<br/>PurchaseDate<br/>WarrantyExpiry<br/>CurrentValue<br/>OriginalCost<br/>Status<br/>Owner (FK)<br/>Department<br/>Location"]
+    
+    AA["AssetAssignment<br/>─────<br/>AssignmentID (PK)<br/>AssetID (FK)<br/>AssignedToUser (FK)<br/>AssignedDate<br/>UnassignedDate<br/>IsActive<br/>AssignmentType<br/>ApprovedBy (FK)"]
+    
+    W["Warranty<br/>─────<br/>WarrantyID (PK)<br/>AssetID (FK)<br/>WarrantyType<br/>StartDate<br/>EndDate<br/>WarrantyProvider (FK)<br/>CoverageDetails<br/>ClaimStatus<br/>ReminderSent"]
+    
+    MS["MaintenanceSchedule<br/>─────<br/>ScheduleID (PK)<br/>AssetID (FK)<br/>MaintenanceType<br/>ScheduledDate<br/>CompletedDate<br/>MaintenanceProvider (FK)<br/>Status<br/>CostEstimate<br/>ActualCost"]
+    
+    SL["SoftwareLicense<br/>─────<br/>LicenseID (PK)<br/>LicenseName<br/>LicenseType<br/>VendorName (FK)<br/>EditionVersion<br/>PurchaseDate<br/>ExpiryDate<br/>RenewalDate<br/>LicenseCount<br/>UsedCount<br/>MonthlyRecurringCost<br/>ComplianceStatus"]
+    
+    INV["Invoice<br/>─────<br/>InvoiceID (PK)<br/>InvoiceNumber<br/>InvoiceDate<br/>VendorID (FK)<br/>TotalAmount<br/>Currency<br/>ProcessingStatus<br/>ExtractionConfidenceScore<br/>ApprovedBy (FK)<br/>ApprovalDate"]
+    
+    PO["PurchaseOrder<br/>─────<br/>POID (PK)<br/>PONumber<br/>CreationDate<br/>RequestedBy (FK)<br/>ApprovedBy (FK)<br/>VendorID (FK)<br/>TargetDeliveryDate<br/>ActualDeliveryDate<br/>Status<br/>EstimatedBudget<br/>ActualSpend"]
+    
+    V["Vendor<br/>─────<br/>VendorID (PK)<br/>VendorName<br/>ContactEmail<br/>Address<br/>PaymentTerms<br/>CreditRating<br/>SupportTier"]
+    
+    CP["CompliancePolicy<br/>─────<br/>PolicyID (PK)<br/>PolicyName<br/>PolicyType<br/>EffectiveDate<br/>ReviewDate<br/>RelatedAssetTypes<br/>AuditFrequency<br/>Penalties"]
+    
+    AUD["AuditLog<br/>─────<br/>AuditID (PK)<br/>EntityType<br/>EntityID<br/>ActionPerformed<br/>ChangedBy (FK)<br/>ChangeDate<br/>BeforeValue<br/>AfterValue"]
+    
+    U["User/Contact<br/>─────<br/>UserID (PK)<br/>Email<br/>Department<br/>Manager (FK)<br/>Role"]
+    
+    %% 1:N Relationships
+    A -->|has many| AA
+    A -->|has many| W
+    A -->|has many| MS
+    A -->|referenced by| SL
+    A -->|linked to| INV
+    A -->|linked to| PO
+    
+    %% M:N Relationships
+    SL -.multiple assignments.- A
+    INV -.contains.- A
+    PO -.contains.- A
+    
+    %% Foreign Key references
+    V -->|supplies| INV
+    V -->|supplies| PO
+    V -->|maintains| MS
+    V -->|provides warranty| W
+    
+    U -->|owns| A
+    U -->|assigned| AA
+    U -->|approves| AA
+    U -->|approves| INV
+    U -->|approves| PO
+    U -->|changes recorded| AUD
+    
+    CP -->|governs| A
+    
+    %% Styling
+    classDef core fill:#4472C4,stroke:#002060,stroke-width:2px,color:#fff
+    classDef transaction fill:#70AD47,stroke:#375623,stroke-width:2px,color:#fff
+    classDef master fill:#FFC000,stroke:#997300,stroke-width:2px,color:#000
+    classDef audit fill:#FF6B6B,stroke:#C41E3A,stroke-width:2px,color:#fff
+    classDef ref fill:#A6A6A6,stroke:#595959,stroke-width:2px,color:#fff
+    
+    class A,SL core
+    class AA,W,MS transaction
+    class INV,PO,V master
+    class AUD audit
+    class U,CP ref
