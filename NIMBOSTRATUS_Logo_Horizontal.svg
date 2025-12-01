@@ -1,0 +1,83 @@
+<svg viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Nimbostratus Horizontal Logo - For Website Headers, Email Signatures -->
+  
+  <defs>
+    <radialGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A5568;stop-opacity:0.8" />
+    </radialGradient>
+    
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+      <feOffset dx="0.5" dy="1" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- LOGO MARK (Left side - compact) -->
+  <g id="logoMark">
+    <!-- Stratus Cloud Layers -->
+    
+    <!-- Bottom cloud layer -->
+    <path d="M 15 75 Q 25 72 35 75 T 55 75 T 75 75 T 85 75 L 85 85 Q 75 82 65 85 T 45 85 T 25 85 L 15 85 Z" 
+          fill="#4A5568" opacity="0.35" stroke="none"/>
+    
+    <!-- Middle cloud layer -->
+    <path d="M 10 55 Q 20 52 30 55 T 50 55 T 70 55 T 85 55 L 85 65 Q 75 62 65 65 T 45 65 T 25 65 L 10 65 Z" 
+          fill="#4A5568" opacity="0.5" stroke="none"/>
+    
+    <!-- Top cloud layer -->
+    <path d="M 18 35 Q 28 32 38 35 T 58 35 T 78 35 L 78 45 Q 68 42 58 45 T 38 45 L 18 45 Z" 
+          fill="#4A5568" opacity="0.65" stroke="none"/>
+    
+    <!-- Unified Node - Central convergence point -->
+    <g filter="url(#softShadow)">
+      <!-- Outer ring -->
+      <circle cx="50" cy="60" r="10" fill="none" stroke="#3B82F6" stroke-width="1.5" opacity="0.35"/>
+      
+      <!-- Main node circle -->
+      <circle cx="50" cy="60" r="7" fill="url(#nodeGradient)" stroke="#3B82F6" stroke-width="1.5" opacity="0.95"/>
+      
+      <!-- Inner glow -->
+      <circle cx="50" cy="60" r="5" fill="#3B82F6" opacity="0.25" stroke="none"/>
+      
+      <!-- Center dot -->
+      <circle cx="50" cy="60" r="3" fill="#FFFFFF" opacity="0.95" stroke="none"/>
+    </g>
+    
+    <!-- Upward Arrow - Energy & Growth -->
+    <!-- Arrow shaft -->
+    <line x1="50" y1="67" x2="50" y2="25" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+    
+    <!-- Arrow head -->
+    <polygon points="50,22 43,33 57,33" fill="#3B82F6" opacity="0.95"/>
+    
+    <!-- Lightning accent -->
+    <path d="M 50 45 L 45 52" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <path d="M 45 52 L 50 57" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  </g>
+  
+  <!-- VERTICAL DIVIDER -->
+  <line x1="120" y1="20" x2="120" y2="100" stroke="#3B82F6" stroke-width="1" opacity="0.2"/>
+  
+  <!-- TEXT BRANDING (Right side) -->
+  <g id="wordmark">
+    <!-- Main product name -->
+    <text x="150" y="50" font-family="Inter, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#4A5568" letter-spacing="0.5">Nimbostratus</text>
+    
+    <!-- Tagline -->
+    <text x="150" y="75" font-family="Inter, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#3B82F6" letter-spacing="0.5">Unified Asset Platform</text>
+    
+    <!-- Accent line -->
+    <line x1="150" y1="82" x2="240" y2="82" stroke="#3B82F6" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  
+  <!-- Optional: Right-side tagline -->
+  <text x="590" y="110" font-family="Inter, Helvetica, sans-serif" font-size="8" font-style="italic" fill="#4A5568" letter-spacing="0.2" opacity="0.6" text-anchor="end">Enterprise assets, unafraid of the storm</text>
+</svg>
